@@ -3,5 +3,5 @@ export const environment = {
   apiDistanceMatrixAccurateUrl:
     'https://api.distancematrix.ai/maps/api/distancematrix/',
   apiGeocodingAccurateUrl:
-    'https://api-v2.distancematrix.ai/maps/api/geocode/json?address=',
+    'https://api.distancematrix.ai/maps/api/geocode/json?address=',
 };

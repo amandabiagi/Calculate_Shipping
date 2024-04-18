@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environment/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GeocodingApiService {
   private _urlGeocodingBase = environment.apiGeocodingAccurateUrl;
   private _apiKey =

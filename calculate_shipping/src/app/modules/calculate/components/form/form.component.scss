@@ -1,0 +1,14 @@
+.box-float {
+    padding: 2.5rem;
+    animation: pulse 2s forwards;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}

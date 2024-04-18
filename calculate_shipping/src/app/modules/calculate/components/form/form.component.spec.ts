@@ -46,13 +46,13 @@ describe('FormComponent', () => {
   it('should call preventDefault when non-numeric key presses', () => {
     const event = new KeyboardEvent('keypress', { key: 'a' });
     spyOn(event, 'preventDefault');
-    component.validatePostalCode(event);
+    component.limitingInputOnlyNumber(event);
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
   it('should not call preventDefault when numeric key presses', () => {
     const event = new KeyboardEvent('keypress', { key: '5' });
-    component.validatePostalCode(event);
+    component.limitingInputOnlyNumber(event);
     spyOn(event, 'preventDefault');
     expect(event.preventDefault).not.toHaveBeenCalled();
   });
@@ -60,21 +60,21 @@ describe('FormComponent', () => {
   it('should not call preventDefault when allowed keys are pressed', () => {
     let event = new KeyboardEvent('keypress', { key: 'Backspace' });
     spyOn(event, 'preventDefault');
-    component.validatePostalCode(event);
+    component.limitingInputOnlyNumber(event);
     expect(event.preventDefault)
       .withContext(`Key press ${event.key}`)
       .not.toHaveBeenCalled();
 
     event = new KeyboardEvent('keypress', { key: 'a', ctrlKey: true });
     spyOn(event, 'preventDefault');
-    component.validatePostalCode(event);
+    component.limitingInputOnlyNumber(event);
     expect(event.preventDefault)
       .withContext(`Key press ${event.key}`)
       .not.toHaveBeenCalled();
 
     event = new KeyboardEvent('keypress', { key: 'a', metaKey: true });
     spyOn(event, 'preventDefault');
-    component.validatePostalCode(event);
+    component.limitingInputOnlyNumber(event);
     expect(event.preventDefault)
       .withContext(`Key press ${event.key}`)
       .not.toHaveBeenCalled();

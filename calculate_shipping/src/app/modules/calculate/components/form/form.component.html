@@ -2,7 +2,7 @@
   <div class="mb-2 col-md-12 col-lg-3">
     <label for="postalCode" class="required form-label">CEP</label
     ><input
-      (keydown)="validatePostalCode($event)"
+      (keydown)="limitingInputOnlyNumber($event)"
       [maxLength]="9"
       [mask]="'00000-000'"
       placeholder="00000-000"
@@ -11,12 +11,46 @@
       formControlName="postalCode"
       id="postalCode"
     />
+    <div class="form-check" bis_skin_checked="1">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="noPostalCode"
+        id="noPostalCode"
+      />
+      <label class="form-check-label" for="noPostalCode">Não sei o cep</label>
+    </div>
     @if(form.get('postalCode')?.hasError('required') && send){
     <div class="text-danger">É necessário informar o CEP.</div>
+    } @if(invalidPostalCode){
+    <div class="text-danger">Digite um cep válido.</div>
     }
   </div>
-
+  <!-- <div
+    class="box-float bg-white m-18 border border-grey-900 rounded-3"
+    [ngClass]="{
+      noPostalCode: 'box-float bg-white m-18 border border-grey-900 rounded-3'
+    }"
+  >
+    @if(noPostalCode){
+    <h3>Preencha seu endereço</h3>
+    <hr />
+    } -->
   <div class="row">
+    <div class="mb-2 col">
+      <label for="country" class="required form-label">País</label>
+      <input
+        type="text"
+        placeholder="Nome do país"
+        class="form-control"
+        formControlName="country"
+        id="country"
+      />
+      @if((form.get('country')?.hasError('required') ||
+      form.get('country')?.hasError('isEmpty')) && send){
+      <div class="text-danger">É necessário informar o país.</div>
+      }
+    </div>
     <div class="mb-2 col">
       <label for="city" class="required form-label">Cidade</label>
       <input
@@ -45,6 +79,19 @@
 
   <div class="row">
     <div class="mb-2 col">
+      <label for="district" class="required form-label">Bairro</label
+      ><input
+        type="text"
+        placeholder="Nome do bairro"
+        class="form-control"
+        formControlName="district"
+        id="district"
+      />
+      @if(form.get('district')?.hasError('required') && send){
+      <div class="invalid-feedback">É necessário informar o bairro.</div>
+      }
+    </div>
+    <div class="mb-2 col">
       <label for="street" class="required form-label">Rua</label
       ><input
         type="text"
@@ -53,15 +100,16 @@
         formControlName="street"
         id="street"
       />
-      @if((form.get('street')?.hasError('required')||
-      form.get('street')?.hasError('isEmpty')) && send){
+      @if(form.get('street')?.hasError('required') && send){
       <div class="invalid-feedback">É necessário informar a rua.</div>
       }
     </div>
+    @if(!noPostalCode){
     <div class="col-md-12 col-lg-2">
       <label for="number" class="form-label">Número</label
       ><input
         placeholder="Nº"
+        maxlength="8"
         type="text"
         class="form-control"
         formControlName="number"
@@ -77,11 +125,17 @@
         <label class="form-check-label" for="noNumber">Sem número</label>
       </div>
     </div>
+    }
   </div>
+  <!-- @if(noPostalCode){
+    <button class="btn btn-success">Buscar CEP</button>
+    }
+  </div> -->
+
   <div class="mb-2 col">
     <label for="complement" class="form-label">Complemento</label
     ><input
-      placeholder="Nome de avenida, praça, mercado e etc"
+      placeholder="Casa dos fundos"
       type="text"
       class="form-control"
       formControlName="complement"
