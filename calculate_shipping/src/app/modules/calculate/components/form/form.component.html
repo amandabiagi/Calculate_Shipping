@@ -1,0 +1,92 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="mb-2 col-md-12 col-lg-3">
+    <label for="postalCode" class="required form-label">CEP</label
+    ><input
+      (keydown)="validatePostalCode($event)"
+      [maxLength]="9"
+      [mask]="'00000-000'"
+      placeholder="00000-000"
+      type="text"
+      class="form-control"
+      formControlName="postalCode"
+      id="postalCode"
+    />
+    @if(form.get('postalCode')?.hasError('required') && send){
+    <div class="text-danger">É necessário informar o CEP.</div>
+    }
+  </div>
+
+  <div class="row">
+    <div class="mb-2 col">
+      <label for="city" class="required form-label">Cidade</label>
+      <input
+        type="text"
+        placeholder="Nome da cidade"
+        class="form-control"
+        formControlName="city"
+        id="city"
+      />
+      @if((form.get('city')?.hasError('required') ||
+      form.get('city')?.hasError('isEmpty')) && send){
+      <div class="text-danger">É necessário informar a cidade.</div>
+      }
+    </div>
+    <div class="col-md-12 col-lg-2">
+      <label for="state" class="required form-label">Estado</label
+      ><input
+        placeholder="ES"
+        type="text"
+        class="form-control"
+        formControlName="state"
+        id="state"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="mb-2 col">
+      <label for="street" class="required form-label">Rua</label
+      ><input
+        type="text"
+        placeholder="Nome da rua"
+        class="form-control"
+        formControlName="street"
+        id="street"
+      />
+      @if((form.get('street')?.hasError('required')||
+      form.get('street')?.hasError('isEmpty')) && send){
+      <div class="invalid-feedback">É necessário informar a rua.</div>
+      }
+    </div>
+    <div class="col-md-12 col-lg-2">
+      <label for="number" class="form-label">Número</label
+      ><input
+        placeholder="Nº"
+        type="text"
+        class="form-control"
+        formControlName="number"
+        id="number"
+      />
+      <div class="form-check" bis_skin_checked="1">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          formControlName="noNumber"
+          id="noNumber"
+        />
+        <label class="form-check-label" for="noNumber">Sem número</label>
+      </div>
+    </div>
+  </div>
+  <div class="mb-2 col">
+    <label for="complement" class="form-label">Complemento</label
+    ><input
+      placeholder="Nome de avenida, praça, mercado e etc"
+      type="text"
+      class="form-control"
+      formControlName="complement"
+      id="complement"
+    />
+  </div>
+  <button class="btn btn-primary" type="submit">Salvar</button>
+</form>
